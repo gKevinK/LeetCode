@@ -6,6 +6,12 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+static int x = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+    return 0;
+}();
+
 class Solution {
 private:
     static bool comp(ListNode * & a, ListNode * & b) {
