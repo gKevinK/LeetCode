@@ -7,7 +7,7 @@ public:
             if (nums[i] == 1) {
                 s1.push(r0);
                 if (s2.empty())
-                    r0 = i+1;
+                    r0 = i + 1;
                 else {
                     r0 = s2.top();
                     s2.pop();
@@ -16,7 +16,7 @@ public:
             } else {
                 s2.push(r0);
                 if (s1.empty())
-                    r0 = i+1;
+                    r0 = i + 1;
                 else {
                     r0 = s1.top();
                     s1.pop();
