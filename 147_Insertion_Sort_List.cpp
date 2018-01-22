@@ -9,14 +9,20 @@
 class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
         ListNode h(0);
+        h.next = head;
         while (head) {
-            ListNode *t1 = &h, *t2;
-            for (; t1->next && t1->next->val <= head->val; t1 = t1->next);
-            t2 = t1->next;
-            t1->next = head;
-            head = head->next;
-            t1->next->next = t2;
+            if (head->next && head->next->val < head->val) {
+                ListNode *t1, *t2;
+                for (t1 = &h; t1->next && t1->next->val < head->next->val; t1 = t1->next);
+                t2 = t1->next;
+                t1->next = head->next;
+                head->next = head->next->next;
+                t1->next->next = t2;
+            } else {
+                head = head->next;
+            }
         }
         return h.next;
     }
