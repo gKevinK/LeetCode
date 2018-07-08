@@ -1,9 +1,9 @@
 class Solution {
 public:
     int numSquares(int n) {
-        vector<int> sqrs, v = { 0 };
-        for (int i = 1; i * i <= n; i++)
-            sqrs.push_back(i * i);
+        static vector<int> sqrs, v = { 0 };
+        while (sqrs.size() * sqrs.size() <= n)
+            sqrs.push_back((sqrs.size() + 1) * (sqrs.size() + 1));
         while (v.size() <= n) {
             int r = INT_MAX, i = v.size();
             for (int & sqr : sqrs) {
