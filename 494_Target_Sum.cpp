@@ -2,17 +2,16 @@ class Solution {
 public:
     int findTargetSumWays(vector<int>& nums, int S) {
         int sum = 0;
-        map<int, int> m;
-        m[0] = 1;
-        for (int & i : nums) {
+        for (int & i : nums)
             sum += i;
+        if (S > sum) return 0;
+        vector<int> dp(sum + S + 1, 0);
+        dp[0] = 1;
+        for (int & i : nums) {
             int d = i * 2;
-            vector<int> v;            
-            for (auto & p : m)
-                v.push_back(p.first);
-            for (int & k : v)
-                m[k - d] = m[k - d] + m[k];
+            for (int j = sum + S; j >= d; j--)
+                dp[j] = dp[j] + dp[j - d];
         }
-        return m[S - sum];
+        return dp[S + sum];
     }
 };
