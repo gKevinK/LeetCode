@@ -1,9 +1,9 @@
 class Solution {
 public:
     int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
-        unordered_set<string> s;
+        set<pair<int, int>> s;
         for (auto & o : obstacles)
-            s.insert(to_string(o[0]) + " " + to_string(o[1]));
+            s.insert({ o[0], o[1] });
         int d = 0, x = 0, y = 0, res = 0;
         vector<pair<int, int>> step = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
         for (int & c : commands) {
@@ -13,7 +13,7 @@ public:
                 d %= 4;
                 continue;
             }
-            while (c-- > 0 && s.find(to_string(x + step[d].first) + " " + to_string(y + step[d].second)) == s.end()) {
+            while (c-- > 0 && s.find({ x + step[d].first, y + step[d].second }) == s.end()) {
                 x += step[d].first;
                 y += step[d].second;
             }
