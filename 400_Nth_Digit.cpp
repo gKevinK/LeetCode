@@ -1,5 +1,19 @@
 class Solution {
 public:
+    // int findNthDigit(int n) {
+    //     int width = 1, base = 1;
+    //     while ((n - 1) / width + 1 > base * 9) {
+    //         n -= width * base * 9;
+    //         width++;
+    //         base *= 10;
+    //     }
+    //     n--;
+    //     int num = base + n / width;
+    //     for (n = width - n % width - 1; n > 0; n--)
+    //         num /= 10;
+    //     return num % 10;
+    // }
+
     int findNthDigit(int n) {
         int i;
         __asm__(R"==(
