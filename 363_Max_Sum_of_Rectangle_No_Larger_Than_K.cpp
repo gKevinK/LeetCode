@@ -22,6 +22,7 @@ public:
                     if (it != ss.end()) res = max(res, sum - *it);
                     ss.insert(sum);
                 }
+                if (res == k) return k;
             }
         }
         return res;
