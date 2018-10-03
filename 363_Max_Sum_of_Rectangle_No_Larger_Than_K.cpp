@@ -2,19 +2,28 @@ class Solution {
 public:
     int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
         int m = matrix.size(), n = matrix[0].size(), res = INT_MIN;
-        vector<vector<int>> s(m + 1, vector<int>(n + 1, 0));
-        for (int i = 1; i <= m; i++)
-            for (int j = 1; j <= n; j++) {
-                s[i][j] = matrix[i - 1][j - 1] + s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1];
+        for (int left = 0; left < n; left++) {
+            vector<int> s(m, 0);
+            for (int right = left; right < n; right++){
+                int sum = 0, tmp = INT_MIN;
+                for (int i = 0; i < m; i++) {
+                    s[i] += matrix[i][right];
+                    sum += s[i];
+                    tmp = max(tmp, sum);
+                    sum = max(sum, 0);
+                }
+                if (tmp == k) return k;
+                if (tmp < k) { res = max(res, tmp); continue; }
+                set<int> ss = { 0 };
+                sum = 0;
+                for (int i = 0; i < m; i++) {
+                    sum += s[i];
+                    auto it = ss.lower_bound(sum - k);
+                    if (it != ss.end()) res = max(res, sum - *it);
+                    ss.insert(sum);
+                }
             }
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                for (int p = 1; p <= m - i; p++)
-                    for (int q = 1; q <= n - j; q++){
-                        int sum = s[i + p][j + q] - s[i][j + q] - s[i + p][j] + s[i][j];
-                        if (sum <= k && sum > res)
-                            res = sum;
-                    }
+        }
         return res;
     }
 };
