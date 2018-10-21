@@ -1,9 +1,3 @@
-static auto _ = []() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    return 0;
-}();
-
 class Solution {
 public:
     int longestSubstring(string s, int k) {
