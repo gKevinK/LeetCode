@@ -1,3 +1,13 @@
+// Sort
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        return nums[nums.size() - k];
+    }
+};
+
+// Quick select
 class Solution {
     int f(vector<int>& nums, int k, int l, int h) {
         if (h - l <= 1) return nums[k];
