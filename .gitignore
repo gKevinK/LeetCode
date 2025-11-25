@@ -1,3 +1,9 @@
+# VSCode settings
 .vscode/*
-*.log
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Others
 _*

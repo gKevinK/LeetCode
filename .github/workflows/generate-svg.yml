@@ -1,0 +1,30 @@
+name: Generate SVG Progress
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Generate SVG
+      run: |
+        python generate_svg.py
+
+    - name: Upload SVG as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: progress-svg
+        path: progress.svg
