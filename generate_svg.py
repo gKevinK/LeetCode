@@ -55,12 +55,13 @@ for group in range((problem_info['num'] + GROUP_SIZE - 2) // GROUP_SIZE):
     end = (group + 1) * GROUP_SIZE
     dn = f'{start:04}-{end:04}'
     accepted = {}
-    for fn in os.listdir(dn):
-        m = re.match(r'(\d{4})_(.+)\.(.+)', fn)
-        fid = int(m.group(1))
-        if fid not in accepted:
-            accepted[fid] = []
-        accepted[fid].append(m.group(3))
+    if os.path.exists(dn):
+        for fn in os.listdir(dn):
+            m = re.match(r'(\d{4})_(.+)\.(.+)', fn)
+            fid = int(m.group(1))
+            if fid not in accepted:
+                accepted[fid] = []
+            accepted[fid].append(m.group(3))
 
     elements.append(svg.Text(x=10, y=y_base + 16, class_=['g'], text=f'{start}-{end}'))
     for i in range(GROUP_SIZE):
