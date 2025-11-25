@@ -1,16 +1,20 @@
 impl Solution {
     pub fn min_difference(mut nums: Vec<i32>) -> i32 {
-        if nums.len() <= 4 {
+        let n = nums.len();
+        if n <= 4 {
             return 0;
         }
-        nums.sort();
-        let mut diff = nums.last().unwrap() - nums.first().unwrap();
-        let mut l = 0;
-        let mut r = nums.len() - 4;
-        while r < nums.len() {
-            diff = std::cmp::min(diff, nums[r] - nums[l]);
-            l += 1;
-            r += 1;
+        if n <= 7 {
+            nums.sort();
+        } else {
+            let (l, _, r) = nums.select_nth_unstable(n - 4);
+            r.sort();
+            let (l, _, _) = l.select_nth_unstable(3);
+            l.sort();
+        }
+        let mut diff = i32::MAX;
+        for i in 0..=3 {
+            diff = diff.min(nums[n - 4 + i] - nums[i]);
         }
         diff
     }

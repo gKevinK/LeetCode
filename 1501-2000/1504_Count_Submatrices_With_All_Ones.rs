@@ -3,20 +3,19 @@ impl Solution {
         let m = mat.len();
         let n = mat[0].len();
         let mut r = 0;
-        let mut dp = vec![vec![0; n]; n];
+        let mut dp = vec![0; m * n];
         for i in 0..m {
             for j in 0..n {
-                let mut f = true;
-                for k in 0..=j {
-                    if mat[i][j - k] == 0 {
-                        f = false;
-                    };
-                    if f {
-                        dp[j][k] += 1;
-                        r += dp[j][k];
-                    } else {
-                        dp[j][k] = 0;
-                    };
+                if mat[i][j] == 1 {
+                    let mut width = if j == 0 { 1 } else { dp[i * n + j - 1] + 1 };
+                    dp[i * n + j] = width;
+                    for k in (0..=i).rev() {
+                        width = width.min(dp[k * n + j]);
+                        if width == 0 {
+                            break;
+                        }
+                        r += width;
+                    }
                 }
             }
         }
