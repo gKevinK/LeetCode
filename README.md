@@ -1,3 +1,3 @@
 # LeetCode Solutions
 
-![LeetCode Progress](./leetcode-progress.svg)
+![LeetCode Progress](https://raw.githubusercontent.com/gKevinK/LeetCode/assets/progress.svg)
