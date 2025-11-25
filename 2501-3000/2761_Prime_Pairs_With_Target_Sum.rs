@@ -4,21 +4,26 @@ impl Solution {
             return vec![];
         }
         let un = n as usize;
-        let mut prime = vec![true; un + 1];
-        prime[0] = false;
-        prime[1] = false;
-        for i in 2..(un / 2) {
-            if i * i > un {
-                break;
-            }
-            if prime[i] {
-                let mut j = i * i;
-                while j < un + 1 {
-                    prime[j] = false;
-                    j += i;
+        use std::sync::OnceLock;
+        static PRIME: OnceLock<Vec<bool>> = OnceLock::new();
+        let prime = PRIME.get_or_init(|| {
+            let mut p = vec![true; 1000001];
+            p[0] = false;
+            p[1] = false;
+            for i in 2..=(500000) {
+                if i * i >= p.len() {
+                    break;
+                }
+                if p[i] {
+                    let mut j = i * i;
+                    while j < p.len() {
+                        p[j] = false;
+                        j += i;
+                    }
                 }
             }
-        }
+            p
+        });
         let mut res = vec![];
         for i in 2..=(un / 2) {
             if prime[i] && prime[un - i] {
