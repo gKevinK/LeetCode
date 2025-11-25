@@ -18,7 +18,7 @@ problem_info = {
     'num': 0,
     'paid_only': []
 }
-if os.path.isfile('_problems'):
+if os.path.isfile('.info'):
     print('Read problem info')
     with open('.info', encoding='utf-8') as f:
         problem_info = json.load(f)
@@ -96,5 +96,6 @@ canvas = svg.SVG(
 )
 
 
-with open('progress.svg', 'w') as f:
+os.makedirs('output', exist_ok=True)
+with open('output/progress.svg', 'w') as f:
     f.write(canvas.as_str())
